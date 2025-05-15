@@ -164,35 +164,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"//pm.test(\"Book details fetched\", function () {",
-							"    //pm.response.to.have.status(200);",
-							"    //const jsonData = pm.response.json();",
-							"    //pm.expect(jsonData.title).to.eql(\"Learning JavaScript Design Patterns\");",
-							"//});",
-							"",
-							"// Define the substring to search for",
-							"const partialTitle = \"Git\"; // ← You can change this to any keyword",
-							"",
-							"// Parse the response",
-							"const books = pm.response.json().books;",
-							"",
-							"// Filter books where title contains the keyword (case-insensitive)",
-							"const matchingBooks = books.filter(book =>",
-							"    book.title.toLowerCase().includes(partialTitle.toLowerCase())",
-							");",
-							"",
-							"// Write assertions",
-							"pm.test(`Books with title containing '${partialTitle}' exist`, () => {",
-							"    pm.expect(matchingBooks.length).to.be.above(0);",
-							"    console.log(`Found ${matchingBooks.length} books:`);",
-							"    matchingBooks.forEach(book => console.log(book.title));",
+							"pm.test(\"Book details fetched\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.books[0].title).to.eql(\"Git Pocket Guide\");",
 							"});",
-							"",
-							"// Optionally set environment variables (e.g., first match)",
-							"if (matchingBooks.length > 0) {",
-							"    pm.environment.set(\"firstMatchedTitle\", matchingBooks[0].title);",
-							"    pm.environment.set(\"firstMatchedISBN\", matchingBooks[0].isbn);",
-							"}",
 							""
 						],
 						"type": "text/javascript",
@@ -214,7 +190,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://demoqa.com/BookStore/v1/Books?title=Gi",
+					"raw": "https://demoqa.com/BookStore/v1/Books?title=Git Pocket Guide",
 					"protocol": "https",
 					"host": [
 						"demoqa",
@@ -228,7 +204,7 @@
 					"query": [
 						{
 							"key": "title",
-							"value": "Gi"
+							"value": "Git Pocket Guide"
 						}
 					]
 				}
@@ -486,13 +462,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"//const books = pm.response.json().books;",
-							"//const upper = books.filter(b => b.title.includes(\"JavaScript\"));",
-							"//const lower = books.filter(b => b.title.includes(\"javascript\"));",
-							"//pm.test(\"Case-insensitive search behaves consistently\", function () {",
-							"    //pm.expect(upper.length).to.eql(lower.length);",
-							"//});",
-							"",
 							"const keyword = \"javascript\";",
 							"const books = pm.response.json().books;",
 							"",
@@ -501,7 +470,7 @@
 							"    book.title.toLowerCase().includes(keyword.toLowerCase())",
 							");",
 							"",
-							"pm.test(`Books with title containing '${keyword}' found (case-insensitive)`, () => {",
+							"pm.test(`Books with title containing '${keyword}' found (case-insensitive)`, function () {",
 							"    pm.expect(matches.length).to.be.above(0);",
 							"    console.log(`Found ${matches.length} matching books:`);",
 							"    matches.forEach(book => console.log(book.title));",
